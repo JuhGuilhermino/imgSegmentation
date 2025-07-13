@@ -36,7 +36,51 @@ void Segmentation::calculateWeight(){
 }
 
 void Segmentation::buildGraph(){
-    
+    Edge e;
+
+    std::vector <Edge> edgs;
+    for (int i = 0; i < width*height; i++){
+        // Adicionar aresta terminal ligada ao foreground
+        e.index = -1;
+        e.weight = img[i].D1;
+        edgs.push_back(e);
+
+        // Adicionar aresta terminal ligada ao background
+        e.index = -2;
+        e.weight = img[i].D0;
+        edgs.push_back(e);
+
+        // Adicionar aresta do vizinho ao norte, se existir
+        if (i - width >= 0){ 
+            e.index = i-width;
+            e.weight =lambda;
+            edgs.push_back(e);
+        }
+
+        // Adicionar aresta do vizinho ao sul, se existir
+        if (i + width < width*height){
+            e.index = i+width;
+            e.weight =lambda;
+            edgs.push_back(e);
+        }
+
+        // Adicionar aresta do vizinho ao oeste, se existir
+        if (i % width > 0){
+            e.index = i-1;
+            e.weight =lambda;
+            edgs.push_back(e);
+        }
+
+        // Adicionar aresta do vizinho ao leste, se existir
+        if (((i+1) % width) !=0){ 
+            e.index = i+1;
+            e.weight =lambda;
+            edgs.push_back(e);
+        }
+
+        graph.push_back(edgs);
+        edgs.clear();
+    }
 }
 
 Segmentation::Segmentation(std::string filePath, int algorithmName){
@@ -72,12 +116,6 @@ void Segmentation::preProcessing(int* fsBegin, int* fsEnd, int* bsBegin, int* bs
     var0 = calculateVar(bsBegin, bsEnd, m0);
     calculateWeight();
     buildGraph();
-
-    int x = img.size();
-    std::cout << "RGB - X - Y - D1 - D0 \n";
-    for (int i = 0; i < x; i++){
-        std::cout <<  img[i].rgb << " - " <<img[i].i << " - " << img[i].j << " - " << img[i].D1 << " - " << img[i].D0 << "\n";  
-    }
 }
 
 void Segmentation::segmentation(){}

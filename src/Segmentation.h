@@ -4,7 +4,6 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <utility>
 #include <cmath>
 
 enum Algorithm {
@@ -18,6 +17,11 @@ struct Pixel {
     int j;
     double D0;
     double D1;
+};
+
+struct Edge {
+    int index;
+    double weight;
 };
 
 class Segmentation {
@@ -39,9 +43,9 @@ private:
 
     /* REPRESENTAÇÃO DA IMAGEM E GRAFO EM ESTRUTURA DE DADOS*/
     std::vector <Pixel> img;
-    std::vector <std::pair<Pixel*, double>> graph;
-    Pixel source = {-1, -1, -1, -1, -1};  /*!< s (foreground) */ 
-    Pixel sink = {-1, -2, -2, -1, -1};    /*!< t (background) */
+    std::vector <std::vector<Edge>> graph;
+    Pixel source = {255, -1, -1, -1, -1};  /*!< s (foreground) */ 
+    Pixel sink = {0, -2, -2, -1, -1};    /*!< t (background) */
 
     /* MÉTODOS AUXILIARES */
     double calculateAvarege(int* begin, int* end);
