@@ -28,7 +28,7 @@ Este projeto implementa algoritmos de fluxo máximo aplicados à segmentação d
 ## 👩‍💻 Autoria
 
  **Júlia Guilhermino**  
-Estudante e pesquisadora interessada em algoritmos de grafos e visão computacional.  
+Estudante interessada em algoritmos de grafos e visão computacional.  
 GitHub: [@JuhGuilhermino](https://github.com/JuhGuilhermino)
 
 
