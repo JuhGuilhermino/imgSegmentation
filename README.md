@@ -6,11 +6,42 @@ Este projeto implementa algoritmos de fluxo máximo aplicados à segmentação d
 
 | Original                | Segmentada              |
 |-------------------------|-------------------------|
-| ![original](imgs/original/exemplo.png) | ![segmentada](imgs/segmentadas/exemplo.png) |
+| ![original](imgs/test.ppm) | ![segmentada](imgs/new.ppm) |
 
 ---
 
-## 📂 Estrutura do Projeto
+## 🚀 Como executar
+
+1. Clone o repositório;
+2. Digite no terminal dentro da pasta do projeto:
+    1.1 `make` - para gerar executável.
+    1.2 `./main [algoritmo] [path da imagem]` - para rodar.
+
+```bash
+
+---
+
+## ✅ Checklist de Implementação
+
+- [x] Leitura da imagem
+- [x] Escrita da imagem
+- [ ] Calculo dos pesos baseado nas sementes
+- [ ] Segmentação
+    - [ ] Ford-Fulkerson
+    - [ ] Boykov-Kolmogorov (BK)
+    - [ ] Push-Relabel (em desenvolvimento)
+- [ ] Cáluclo do tempo
+- [ ] Sofisticação dos testes
+
+---
+
+## 👩‍💻 Autoria
+
+ **Júlia Guilhermino**  
+Estudante e pesquisadora interessada em algoritmos de grafos e visão computacional.  
+GitHub: [@JuhGuilhermino](https://github.com/JuhGuilhermino)
+
+
 
 
 
