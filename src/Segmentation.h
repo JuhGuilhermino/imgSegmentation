@@ -1,72 +1,53 @@
-#ifndef SEGMENTATION
-#define SEGMENTATION
 
-#include <iostream>
-#include <fstream>
 #include <vector>
+#include <iostream>
 #include <cmath>
-
-enum Algorithm {
-    FORD_FULKERSON,
-    BOYKOV_KOLMOGOROV
-};
+#include <utility>
 
 struct Pixel {
-    int rgb;
-    int i;
-    int j;
-    double D0;
-    double D1;
+    int x;
+    int y;
 };
 
-struct Edge {
-    int index;
-    double weight;
-};
-
-class Segmentation {
+class Segmentation{
 private:
-    /* DADOS NA IMAGEM */
-    std::string file;                      /*!< Path da imagem*/
-    std::string algorithm;                 /*!< Operação a ser realizada na imagem */
-    std::string format;                    /*!< Formato da imagem (ex.: P3 para PPM) */
-    std::string rgbMax;                    /*!< Valor máximo para os componentes RGB */
-    int height;                            /*!< Altura da imagem */
-    int width;                             /*!< Largura da imagem */
+    std::vector <int> img;     /*!< Pixels da imagem*/
+    int height;                /*!< Altura da imagem */
+    int width;                 /*!< Largura da imagem */
 
-    /* DADOS RELACIONADO AO CÁLCULO DOS PESOS DAS ARESTAS*/
+    std::vector <double> D1;   /*!< Custo do pixel i pertencer ao objeto*/
+    std::vector <double> D0;   /*!< Custo do pixel i pertencer ao fundo*/
+
     double m0;
     double m1;
     double var0;
     double var1;
+
     double lambda = 3;
 
-    /* REPRESENTAÇÃO DA IMAGEM E GRAFO EM ESTRUTURA DE DADOS*/
-    std::vector <Pixel> img;
-    std::vector <std::vector<Edge>> graph;
-    Pixel source = {255, -1, -1, -1, -1};  /*!< s (foreground) */ 
-    Pixel sink = {0, -2, -2, -1, -1};    /*!< t (background) */
+    Pixel source = {-1, -1};  /*!< s (foreground) */ 
+    Pixel sink = {-2, -2};    /*!< t (background) */
 
-    /* MÉTODOS AUXILIARES */
+    std::vector <std::pair<Pixel, double>> graph;
+
     double calculateAvarege(int* begin, int* end);
 
-    double calculateVar(int* begin, int* end, double m);
+    double calculateSigma(int* begin, int* end, double m);
 
     void calculateWeight();
 
-    void buildGraph();
-
 public:
-    Segmentation(std::string imgPath, int algorithmName);
-    
+    Segmentation();
+
     ~Segmentation();
 
-    void readImage();
+    void getPixels(int pixel);
 
-    void preProcessing(int* fsBegin, int* fsEnd, int* bsBegin, int* bsEnd);
+    void getSeeds(int* fsBegin, int* fsEnd, int* bsBegin, int* bsEnd);
 
-    void segmentation();
+    void buildGraph(int w, int h);
 
-    void saveImage();
 };
-#endif
+
+
+

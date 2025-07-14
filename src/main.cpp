@@ -1,36 +1,57 @@
-#include "Segmentation.h"
+/**
+ * @file main.cpp
+ * @author Júlia Guilhermino (juh.guilhermino03@gmail.com)
+ * @brief Classe principal do projeto.
+ * @version 0.1
+ * @date 2025-07-06
+ * 
+ * @copyright Copyright (c) 2025
+ * 
+ */
+
+#include "imageProcessor.h"
 
 #include <iostream>
 #include <vector>
-#include <chrono>
 
+/**
+ * @brief 
+ * 
+ * @param program_name 
+ */
 void print_usage() {
-    std::cerr << "Usage: ./main <input_image_file>\n";
+    std::cerr << "Usage: ./main [algorithm] <input_image_file>\n";
+    std::cerr << "Where [algorithm] can be:\n";
+    std::cerr << '\t' << "f       Ford-Fulkerson\n";
+    std::cerr << '\t' << "p       Push-Relabel\n";
+    std::cerr << '\t' << "b       Boykov-Kolmogorov\n";
 }
 
+/**
+ * @brief Classe principal do projeto.
+ * 
+ * @param argc 
+ * @param argv 
+ * @return int 
+ */
 int main(int argc, char* argv[]) {
-    if (argc != 2) {
+    if (argc != 3) {
         print_usage();
-    } else {
+    } else { 
+
         std::vector <int> foregroundSeeds = {0,1};
         std::vector <int> backgroundSeeds = {7,8};
 
-        int* fBegin = foregroundSeeds.data();
-        int* fEnd = fBegin + foregroundSeeds.size();
-        int* bBegin = backgroundSeeds.data();
-        int* bEnd = bBegin + backgroundSeeds.size();
+        int* fsBegin = foregroundSeeds.data();
+        int* fsEnd = fsBegin + foregroundSeeds.size();
+        int* bsBegin = backgroundSeeds.data();
+        int* bsEnd = bsBegin + backgroundSeeds.size();
 
-        //auto start = std::chrono::high_resolution_clock::now();
-        Segmentation test(argv[1], Algorithm::BOYKOV_KOLMOGOROV);
-        test.readImage();
-        test.preProcessing(fBegin, fEnd, bBegin, bEnd);
-        //test.segmentation();
-        //test.~Segmentation();
-        //auto end = std::chrono::high_resolution_clock::now();
+        ImageProcessor processor(argv[2], argv[1]);
+        processor.read();
+        processor.segmentation(fsBegin, fsEnd, bsBegin, bsEnd);
 
-        //auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-
-        //std::cout << "Tempo de execução: " << duration.count() << "segundos" << std::endl;
+        //processor.write();
     }
     return 0;
 }

@@ -8,7 +8,7 @@ CXXFLAGS = -Wall -std=c++17
 TARGET = main
 
 # Fontes do projeto
-SOURCES = src/main.cpp src/Segmentation.cpp
+SOURCES = src/main.cpp src/imageProcessor.cpp src/segmentation.cpp
 
 # Objetos gerados a partir dos fontes
 OBJECTS = $(SOURCES:.cpp=.o)
@@ -21,7 +21,10 @@ $(TARGET): $(OBJECTS)
 main.o: src/main.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-segmentation.o: src/Segmentation.cpp
+imageProcessor.o: src/imageProcessor.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+segmentation.o: src/segmentation.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Limpar os objetos e o executável
