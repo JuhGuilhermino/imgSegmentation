@@ -2,22 +2,12 @@
 
 Este projeto implementa algoritmos de fluxo máximo aplicados à segmentação de imagens com base em grafos. A segmentação é feita usando sementes definidas pelo usuário e técnicas  Ford-Fulkerson, Push-Relabel e Boykov-Kolmogorov. Ele inclui ainda uma análise comparativa do desempenho desses algortimos em função do tempo de execução
 
-## 🖼️ Exemplo de Segmentação
-
-| Original                | Segmentada              |
-|-------------------------|-------------------------|
-| ![original](imgs/test.ppm) | ![segmentada](imgs/new.ppm) |
-
----
-
 ## 🚀 Como executar
 
 1. Clone o repositório;
 2. Digite no terminal dentro da pasta do projeto:
     1.1 `make` - para gerar executável.
     1.2 `./main [algoritmo] [path da imagem]` - para rodar.
-
-```bash
 
 ---
 
